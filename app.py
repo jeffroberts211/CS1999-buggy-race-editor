@@ -26,26 +26,50 @@ def create_buggy():
     return render_template("buggy-form.html")
   elif request.method == 'POST':
     msg=""
+    qty_wheels = request.form['qty_wheels']
+    flag_color = request.form['flag_color']
+    flag_color_secondary = request.form['flag_color_secondary']
+    flag_pattern = request.form['flag_pattern']
+    power_type = request.form['power_type']
+    hamster_booster = request.form['hamster_booster']
+    if not qty_wheels.isdigit():
+       msg = f"Sorry, you didn't enter the number of wheels correctly: {qty_wheels}, please use an integer value"
+       return render_template("buggy-form.html", msg = msg)
+    if not (int(qty_wheels) % 2) == 0:
+       msg = ("The number of wheels needs to be even")
+       return render_template("buggy-form.html", msg = msg)
+    colourlist = ["black", "white", "grey", "red", "purple", "green", "yellow", "navy", "blue", "orange", "gold", "silver", "brown", "maroon"]
+    if flag_color not in colourlist:
+       msg = f"Sorry, you didn't enter a recognised colour: {flag_color}"
+       return render_template("buggy-form.html", msg = msg)
+    if flag_color_secondary == flag_color:
+       msg = f"Sorry, your secondary flag colour must not be the same as the main flag colour: {flag_color}"
+       return render_template("buggy-form.html", msg = msg)
+    if flag_color_secondary not in colourlist:
+       msg = f"Sorry, you didn't enter a recognised colour: {flag_color_secondary}, please try again."
+       return render_template("buggy-form.html", msg = msg)
+    if not hamster_booster.isdigit():
+       msg = f"Sorry power type must be hamster to use hamster boosters"
+       return render_template("buggy-form.html", msg = msg)
+    if not hamster_booster.isdigit():
+        msg = f"Sorry, you didn't enter the number of hamster booster correctly, please use an integer: {hamster_booster}"
+        return render_template("buggy-form.html", msg = msg)
+    powertypelist = ["petrol", "fusion", "steam", "bio", "electric", "rocket", "hamster", "thermo", "solar", "wind"]
+    msg = f"flag_color={flag_color}" , f"flag_color_secondary={flag_color_secondary}" , f"flag_pattern={flag_pattern}" , f"power_type={power_type}", f"hamster_booster={hamster_booster}"
     try:
-      qty_wheels = request.form['qty_wheels']
-      flag_color = request.form['flag_color']
-      flag_color_secondary = request.form['flag_color_secondary']
-      flag_pattern = request.form['flag_pattern']
-      power_type = request.form['power_type']
-      msg = f"qty_wheels={qty_wheels}" , f"flag_color={flag_color}" , f"flag_color_secondary={flag_color_secondary}" , f"flag_pattern={flag_pattern}" , f"power_type={power_type}"
-      with sql.connect(DATABASE_FILE) as con:
-        cur = con.cursor()
-        cur.execute("UPDATE buggies set qty_wheels=?, flag_color=?, flag_color_secondary=?, flag_pattern=?, power_type=? WHERE id=?",
-        (qty_wheels, flag_color, flag_color_secondary, flag_pattern, power_type, DEFAULT_BUGGY_ID)
-         )
-        con.commit()
-        msg = "Record successfully saved"
+         with sql.connect(DATABASE_FILE) as con:
+           cur = con.cursor()
+           cur.execute("UPDATE buggies set qty_wheels=?, flag_color=?, flag_color_secondary=?, flag_pattern=?, power_type=?, hamster_booster=? WHERE id=?",
+           (qty_wheels, flag_color, flag_color_secondary, flag_pattern, power_type, hamster_booster, DEFAULT_BUGGY_ID)
+            )
+           con.commit()
+           msg = "Record successfully saved"
     except:
-      con.rollback()
-      msg = "error in update operation"
+       con.rollback()
+       msg = "error in update operation"
     finally:
-      con.close()
-      return render_template("updated.html", msg = msg)
+       con.close()
+    return render_template("updated.html", msg = msg)
 
 #------------------------------------------------------------
 # a page for displaying the buggy
