@@ -5,6 +5,9 @@
 {% block content %}
 
   <h1>Make buggy</h1>
+  <p>
+    {{ msg }}
+  </p>
   <form action="/new" method="post">
     <br>
 	<label for="qty_wheels">Number of wheels:</label>
@@ -20,11 +23,32 @@
     </br>
 	<br>
 	<label for="flag_pattern">Flag pattern:</label>
-	<input type="text" name="flag_pattern" />
+	<select type="text" name="flag_pattern" />
+	<option> plain </option>
+	<option> vstripe </option>
+	<option> hstripe </option>
+	<option> checker </option>
+	<option> spot </option>
+	</select>
     </br>
 	<br>
 	<label for="power_type">Power type:</label>
-	<input type="text" name="power_type" />
+	<select type="text" name="power_type" />
+	<option> petrol </option>
+	<option> fusion </option>
+	<option> steam </option>
+	<option> bio </option>
+	<option> electric </option>
+	<option> rocket </option>
+	<option> hamster </option>
+	<option> thermo </option>
+	<option> solar </option>
+	<option> wind </option>
+	</select>
+    </br>
+	<br>
+	<label for="hamster_booster">Number of hamster boosters:</label>
+	<input type="text" name="hamster_booster" />
     </br>
 	<input type="submit" class="button">
   </form>

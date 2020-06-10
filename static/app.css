@@ -3,23 +3,23 @@ html{
   padding: 0; 
 }
 body {
-  font-family: "Source Sans Pro","Helvetica Neue",Arial,Helvetica,sans-serif;
+  font-family: "Palatino Linotype","Helvetica Neue",Arial,Helvetica,sans-serif;
   margin: 0;
   padding: 0;
   font-size: 1.2em;
   color: #000000;
   background: repeating-linear-gradient(
     45deg,
-    #ffffee,
-    #ffffee 2em,
-    #eeeeee 2em,
-    #eeeeee 4em
+    rgb(0, 255, 98),
+    rgb(0, 255, 98) 2em,
+    rgb(0, 81, 255) 2em,
+    rgb(0, 255, 98) 4em
   );
 }
 .main-content {
   min-height:100vh;
   padding: 1em;
-  background: white;
+  background: rgb(240, 179, 252);
   margin: 0 0 0 3em;
 }
 h1 {
@@ -34,11 +34,11 @@ a.button, input.button {
   margin:0.5em;
   border-radius: 0.25em;
   text-decoration: none;
-  background-color: white;
-  color: black;
+  background-color: rgb(253, 6, 6);
+  color: rgb(255, 175, 4);
   box-shadow: 5px 5px 5px #999999;
 }
-a.button:hover {
+a.button:hover, input.button:hover {
   background-color: black;
   color: white;
 }
@@ -47,7 +47,7 @@ input {
   font-size:100%;
 }
 input.button {
-  background-color: #99ff99;
+  background-color: rgb(104, 87, 255);
 }
 table {
   border:1px solid black;
@@ -61,4 +61,8 @@ table td, table th {
 }
 .spacer {
   margin: 3em 0;
+}
+
+.title {
+  font-family: 'Abril Fatface', cursive;
 }
